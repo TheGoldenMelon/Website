@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Films — Elliot Wilkinson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  body {
+    background: #1c1c1e; /* matches your --bg */
+  }
+
+  #films {
+    min-height: auto;
+    padding: 0;
+    display: block;
+    text-align: left;
+  }
+
+  /* ─────────────────────────────────────────────
+     FILM ENTRY
+     Each .film-entry is one full-width row.
+     It contains two stills side by side (50/50)
+     and a text overlay centred at the bottom.
+
+     TO ADD A NEW FILM:
+       1. Copy from FILM ENTRY START to FILM ENTRY END
+       2. Paste below the last entry
+       3. Replace the two img src paths with your stills
+       4. Update title, role, year, and optional href
+       5. If you only have one still, see the note below
+  ───────────────────────────────────────────── */
+
+  .film-entry {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* Clicking the entry opens the link if one is set */
+  .film-entry[data-href] { cursor: pointer; }
+
+  .film-still {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .film-still img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: brightness(0.85);
+  }
+
+  .film-entry:hover .film-still img {
+    transform: scale(1.03);
+    filter: brightness(0.65);
+  }
+
+  /* Placeholder for when you don't have a still yet */
+  .film-still-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.12);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Text overlay — sits at the bottom centre, over both stills */
+  .film-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem 1rem 1.8rem;
+    text-align: center;
+    /* gradient so text is legible over any image */
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  /* Always show caption — same as Felix Wiedemann (visible by default) */
+  .film-entry .film-caption {
+    opacity: 1;
+  }
+
+  .film-caption-title {
+    font-family: 'Jost', sans-serif;
+    font-size: clamp(0.75rem, 1.2vw, 1rem);
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 0.3rem;
+  }
+
+  .film-caption-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+  }
+
+  /* Arrow that appears on hover */
+  .film-caption-arrow {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+  }
+
+  .film-entry:hover .film-caption-arrow {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile: stack stills vertically */
+  @media (max-width: 600px) {
+    .film-entry {
+      grid-template-columns: 1fr;
+    }
+
+    .film-still {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* On mobile hide the second still so it doesn't double up weirdly */
+    .film-still:nth-child(2) {
+      display: none;
+    }
+
+    .film-caption {
+      opacity: 1;
+    }
+  }
+
+  /* Nav tweak — add Films as active */
+  nav a[href="films.html"] { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-links">
+    <a href="index.html">Showreel</a>
+    <a href="films.html" class="active">Films</a>
+    <a href="kit.html">Kit</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-name">ELLIOT WILKINSON</div>
+  <div class="nav-socials">
+    <a href="https://www.instagram.com/elliotjwilkinson" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100012790538985" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 3h-2a4 4 0 0 0-4 4v2H8v3h2v9h3v-9h2.5l.5-3H13V7a1 1 0 0 1 1-1h2z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/elliotjwilkinson" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.5" r="0.5" fill="currentColor"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg>
+    </a>
+    <a href="https://www.imdb.com/name/nm16528318/" target="_blank" rel="noopener" aria-label="IMDb">
+      <svg viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="39" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="20" y="13.5" font-size="9" font-family="Arial, sans-serif" font-weight="700" fill="currentColor" text-anchor="middle" dominant-baseline="middle">IMDb</text></svg>
+    </a>
+  </div>
+</nav>
+
+<main style="padding-top: 5rem;">
+<section id="films">
+
+  <!--
+  ═══════════════════════════════════════════════════════════
+  HOW TO ADD A FILM
+  ───────────────────────────────────────────────────────────
+  Copy from FILM ENTRY START to FILM ENTRY END.
+  Paste it below the last </div> <!-- FILM ENTRY END --> above the </section>.
+
+  Then update:
+    • data-href         → link to Vimeo/YouTube (remove attribute if no link yet)
+    • img src (×2)      → two stills from the film (pick contrasting shots)
+    • film-caption-title → "FILM TITLE / Format" e.g. "DUST / Short Film"
+    • film-caption-sub  → "Dir. Name" or your role
+
+  Only have one still? Duplicate the same image for both stills —
+  it'll be cropped differently at each half so it reads as two frames.
+
+  No stills yet? Replace <img> with:
+    <div class="film-still-placeholder">Coming soon</div>
+  ═══════════════════════════════════════════════════════════
+  -->
+
+
+  <!-- ═══ FILM ENTRY START ═══ -->
+  <div class="film-entry" data-href="#" onclick="if(this.dataset.href && this.dataset.href!='#') window.open(this.dataset.href,'_blank')">
+    <div class="film-still">
+      <img src="images/film-01a.jpg" alt="Film Title still 1" />
+      <!-- No image yet? Use this instead:
+      <div class="film-still-placeholder">Coming soon</div>
+      -->
+    </div>
+    <div class="film-still">
+      <img src="images/film-01b.jpg" alt="Film Title still 2" />
+    </div>
+    <div class="film-caption">
+      <p class="film-caption-title">FILM TITLE / Short Film</p>
+      <p class="film-caption-sub">Dir. Director Name</p>
+      <span class="film-caption-arrow">Watch ↗</span>
+    </div>
+  </div>
+  <!-- ═══ FILM ENTRY END ═══ -->
+
+
+  <!-- ═══ FILM ENTRY START ═══ -->
+  <div class="film-entry" data-href="#" onclick="if(this.dataset.href && this.dataset.href!='#') window.open(this.dataset.href,'_blank')">
+    <div class="film-still">
+      <img src="images/film-02a.jpg" alt="Film Title still 1" />
+    </div>
+    <div class="film-still">
+      <img src="images/film-02b.jpg" alt="Film Title still 2" />
+    </div>
+    <div class="film-caption">
+      <p class="film-caption-title">FILM TITLE / Short Film</p>
+      <p class="film-caption-sub">Dir. Director Name</p>
+      <span class="film-caption-arrow">Watch ↗</span>
+    </div>
+  </div>
+  <!-- ═══ FILM ENTRY END ═══ -->
+
+
+  <!-- ═══ FILM ENTRY START ═══ (example with placeholder — no stills yet) -->
+  <div class="film-entry">
+    <div class="film-still">
+      <div class="film-still-placeholder">Coming soon</div>
+    </div>
+    <div class="film-still">
+      <div class="film-still-placeholder">Coming soon</div>
+    </div>
+    <div class="film-caption">
+      <p class="film-caption-title">FILM TITLE / Short Film</p>
+      <p class="film-caption-sub">Dir. Director Name</p>
+    </div>
+  </div>
+  <!-- ═══ FILM ENTRY END ═══ -->
+
+
+</section>
+</main>
+
+<footer>
+  &copy; 2026 Elliot Wilkinson
+</footer>
+
+</body>
+</html>
